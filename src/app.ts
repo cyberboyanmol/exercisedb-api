@@ -1,40 +1,40 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
-import { apiReference } from '@scalar/hono-api-reference';
-import { logger } from 'hono/logger';
-import { prettyJSON } from 'hono/pretty-json';
-import { Home } from './pages/home';
-import { Routes } from '#common/types';
-import type { HTTPException } from 'hono/http-exception';
+import { OpenAPIHono } from '@hono/zod-openapi'
+import { apiReference } from '@scalar/hono-api-reference'
+import { logger } from 'hono/logger'
+import { prettyJSON } from 'hono/pretty-json'
+import { Home } from './pages/home'
+import { Routes } from '#common/types'
+import type { HTTPException } from 'hono/http-exception'
 
 export class App {
-  private app: OpenAPIHono;
+  private app: OpenAPIHono
 
   constructor(routes: Routes[]) {
-    this.app = new OpenAPIHono();
-    this.initializeGlobalMiddleware();
-    this.initializeRoutes(routes);
-    this.initializeSwaggerUI();
-    this.initializeRouteFallback();
-    this.initializeErrorHandler();
+    this.app = new OpenAPIHono()
+    this.initializeGlobalMiddleware()
+    this.initializeRoutes(routes)
+    this.initializeSwaggerUI()
+    this.initializeRouteFallback()
+    this.initializeErrorHandler()
   }
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach((route) => {
-      route.initRoutes();
-      this.app.route('/api', route.controller);
-    });
-    this.app.route('/', Home);
+      route.initRoutes()
+      this.app.route('/api', route.controller)
+    })
+    this.app.route('/', Home)
   }
 
   private initializeGlobalMiddleware() {
-    this.app.use(logger());
-    this.app.use(prettyJSON());
+    this.app.use(logger())
+    this.app.use(prettyJSON())
   }
 
   private initializeSwaggerUI() {
     this.app.doc31('/swagger', (c) => {
-      const { protocol: urlProtocol, hostname, port } = new URL(c.req.url);
-      const protocol = c.req.header('x-forwarded-proto') ? `${c.req.header('x-forwarded-proto')}:` : urlProtocol;
+      const { protocol: urlProtocol, hostname, port } = new URL(c.req.url)
+      const protocol = c.req.header('x-forwarded-proto') ? `${c.req.header('x-forwarded-proto')}:` : urlProtocol
 
       return {
         openapi: '3.1.0',
@@ -52,8 +52,8 @@ export class App {
             description: 'Current environment'
           }
         ]
-      };
-    });
+      }
+    })
 
     this.app.get(
       '/docs',
@@ -76,7 +76,7 @@ export class App {
           url: '/swagger'
         }
       })
-    );
+    )
   }
 
   private initializeRouteFallback() {
@@ -87,16 +87,16 @@ export class App {
           message: 'oops route not found!!. check docs at https://exercisedb-api.vercel.app/docs'
         },
         404
-      );
-    });
+      )
+    })
   }
   private initializeErrorHandler() {
     this.app.onError((err, c) => {
-      const error = err as HTTPException;
-      return c.json({ success: false, message: error.message }, error.status || 500);
-    });
+      const error = err as HTTPException
+      return c.json({ success: false, message: error.message }, error.status || 500)
+    })
   }
   public getApp() {
-    return this.app;
+    return this.app
   }
 }
