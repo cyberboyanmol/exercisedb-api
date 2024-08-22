@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono } from 'hono';
 
 export const Home = new Hono();
 
@@ -13,7 +13,7 @@ export const Meteors = ({ number }: { number: number }) => {
             top: 0,
             left: `${Math.floor(Math.random() * (400 - -400) + -400)}px`,
             animationDelay: `${Math.random() * (0.8 - 0.2) + 0.2}s`,
-            animationDuration: `${Math.floor(Math.random() * (10 - 2) + 2)}s`,
+            animationDuration: `${Math.floor(Math.random() * (10 - 2) + 2)}s`
           }}
         ></span>;
       })}
@@ -21,10 +21,10 @@ export const Meteors = ({ number }: { number: number }) => {
   );
 };
 
-Home.get("/", (c) => {
-  const title = "ExerciseDB API";
+Home.get('/', (c) => {
+  const title = 'ExerciseDB API';
   const description =
-    "Access detailed data on over 1300+ exercises with the ExerciseDB API. This API offers extensive information on each exercise, including target body parts, equipment needed, GIFs for visual guidance, and step-by-step instructions.";
+    'Access detailed data on over 1300+ exercises with the ExerciseDB API. This API offers extensive information on each exercise, including target body parts, equipment needed, GIFs for visual guidance, and step-by-step instructions.';
   return c.html(
     <html>
       <head>
@@ -33,29 +33,16 @@ Home.get("/", (c) => {
         <meta charset="utf-8" />
         <meta name="description" content={description} />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://github.com/cyberboyanmol/exercisedb-api"
-        />
+        <meta property="og:url" content="https://github.com/cyberboyanmol/exercisedb-api" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:url"
-          content="https://github.com/cyberboyanmol/exercisedb-api"
-        />
+        <meta property="twitter:url" content="https://github.com/cyberboyanmol/exercisedb-api" />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com" />
         <style
           dangerouslySetInnerHTML={{
@@ -81,14 +68,13 @@ Home.get("/", (c) => {
             }
             .animate-meteor-effect {
               animation-name: meteorAnimation;
-            }`,
+            }`
           }}
         />
-      </head>{" "}
+      </head>{' '}
       <body class="bg-black mx-auto md:min-h-screen max-w-screen-lg flex flex-col">
         <main class="mx-auto my-auto flex flex-col space-y-8 px-4 pb-8 md:py-10 relative overflow-y-hidden overflow-x-hidden">
           <Meteors number={15} />
-
           <div class="flex flex-row items-center space-x-4 ml-6">
             <p class="text-2xl md:text-4xl text-transparent font-bold leading-none bg-clip-text bg-gradient-to-r from-[#ff7d78] to-purple-600">
               ExerciseDB API
@@ -105,12 +91,9 @@ Home.get("/", (c) => {
                 <span class="text-xs uppercase bg-opacity-15 rounded text-center max-w-fit px-2 py-1 font-bold tracking-wide bg-red-500 text-red-500">
                   Get Started
                 </span>
-                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">
-                  Explore the Docs
-                </span>
+                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">Explore the Docs</span>
                 <div class="text-neutral-500 mt-2">
-                  Check out the documentation to learn how to use the ExerciseDB
-                  API.
+                  Check out the documentation to learn how to use the ExerciseDB API.
                 </div>
               </div>
             </a>
@@ -124,12 +107,9 @@ Home.get("/", (c) => {
                 <span class="text-xs uppercase bg-opacity-15 rounded text-center max-w-fit px-2 py-1 font-bold tracking-wide bg-green-500 text-green-500">
                   Open Source
                 </span>
-                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">
-                  Open Source
-                </span>
+                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">Open Source</span>
                 <div class="text-neutral-500 mt-2">
-                  ExerciseDB API is open-source. Check out the source code on
-                  github.
+                  ExerciseDB API is open-source. Check out the source code on github.
                 </div>
               </div>
             </a>
@@ -143,12 +123,10 @@ Home.get("/", (c) => {
                 <span class="text-xs uppercase bg-opacity-15 rounded text-center max-w-fit px-2 py-1 font-bold tracking-wide bg-violet-500 text-violet-500">
                   Contribute
                 </span>
-                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">
-                  Get Involved
-                </span>
+                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">Get Involved</span>
                 <div class="text-neutral-500 mt-2">
-                  Encounter a bug or have a feature suggestion? Report it on
-                  GitHub or contribute by submitting a pull request.
+                  Encounter a bug or have a feature suggestion? Report it on GitHub or contribute by submitting a pull
+                  request.
                 </div>
               </div>
             </a>
@@ -158,11 +136,9 @@ Home.get("/", (c) => {
                 <span class="text-xs uppercase bg-opacity-15 rounded text-center max-w-fit px-2 py-1 font-bold tracking-wide bg-blue-500 text-blue-500">
                   Contact
                 </span>
-                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">
-                  Anmol Gangwar
-                </span>
+                <span class="text-neutral-200 font-bold text-lg sm:text-xl md:text-2xl mt-2">Anmol Gangwar</span>
                 <div class="text-neutral-500 mt-2">
-                  Have a question or need help? Reach out on{" "}
+                  Have a question or need help? Reach out on{' '}
                   <a
                     href="https://github.com/cyberboyanmol"
                     target="_blank"
@@ -171,7 +147,7 @@ Home.get("/", (c) => {
                   >
                     GitHub
                   </a>
-                  ,{" "}
+                  ,{' '}
                   <a
                     href="https://twitter.com/cyberboyanmol"
                     target="_blank"
@@ -180,7 +156,7 @@ Home.get("/", (c) => {
                   >
                     Twitter
                   </a>
-                  , or{" "}
+                  , or{' '}
                   <a
                     href="https://t.me/cyberboyanmol"
                     target="_blank"
