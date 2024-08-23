@@ -24,6 +24,11 @@
       "types": "./src/common/*/index.d.ts",
       "production": "./dist/common/*/index.js",
       "default": "./src/common/*/"
+    },
+    "#infra/*": {
+      "types": "./src/infra/*/index.d.ts",
+      "production": "./dist/infra/*/index.js",
+      "default": "./src/infra/*/"
     }
   },
   "scripts": {
@@ -58,6 +63,7 @@
     "@types/node": "^22.5.0",
     "@typescript-eslint/parser": "^8.2.0",
     "@vitest/ui": "^2.0.5",
+    "bun-types": "^1.1.25",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

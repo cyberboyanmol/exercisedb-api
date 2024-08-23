@@ -10,7 +10,8 @@
     "moduleResolution": "Bundler",
     "paths": {
       "#modules/*": ["src/modules/*"],
-      "#common/*": ["src/common/*"]
+      "#common/*": ["src/common/*"],
+      "#infra/*": ["src/infra/*"]
     },
     "resolveJsonModule": true,
     "strict": true,

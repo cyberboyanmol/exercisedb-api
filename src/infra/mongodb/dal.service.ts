@@ -1,4 +1,4 @@
-import { Connection, ConnectOptions } from 'mongoose'
+import { Connection } from 'mongoose'
 import * as mongoose from 'mongoose'
 
 export class DalService {
@@ -6,29 +6,21 @@ export class DalService {
 
   constructor() {}
 
-  async connect(url: string, config: ConnectOptions = {}): Promise<Connection> {
+  async connectDB(): Promise<Connection | undefined> {
     if (this.connection && this.isConnected()) {
       return this.connection
     }
 
-    const baseConfig: ConnectOptions = {
-      maxPoolSize: Number(process.env.MONGO_MAX_POOL_SIZE) || 500,
-      minPoolSize: Number(process.env.MONGO_MIN_POOL_SIZE) || 10,
-      maxIdleTimeMS: 1000 * 60 * 10, // default 10 minutes
-      autoIndex: process.env.AUTO_CREATE_INDEXES === 'true'
-    }
-
     try {
-      const instance = await mongoose.connect(url, {
-        ...baseConfig,
-        ...config
-      })
-      console.log('Database connected successfully')
-      this.connection = instance.connection
-      return this.connection
+      if (process.env.EXERCISEDB_DATABASE !== undefined) {
+        const instance = await mongoose.connect(process.env.EXERCISEDB_DATABASE)
+        console.log('Database connected successfully')
+        this.connection = instance.connection
+        return this.connection
+      }
     } catch (error) {
       console.error('Error connecting to the database:', error)
-      throw error
+      process.exit(1)
     }
   }
 

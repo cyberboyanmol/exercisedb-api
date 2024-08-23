@@ -44,7 +44,7 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
         _id: false,
         bodyPartId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'Equipment',
+          ref: 'BodyPart',
           required: true,
           unique: true,
           index: true
