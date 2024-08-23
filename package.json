@@ -43,7 +43,9 @@
     "@hono/node-server": "^1.12.1",
     "@hono/zod-openapi": "^0.15.3",
     "@scalar/hono-api-reference": "^0.5.142",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
     "hono": "^4.5.8",
+    "ioredis": "^5.4.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -51,7 +53,9 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@eslint/js": "^9.9.0",
     "@types/bun": "latest",
+    "@types/ioredis": "^5.0.0",
     "@types/node": "^22.5.0",
+    "@typescript-eslint/parser": "^8.2.0",
     "@vitest/ui": "^2.0.5",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
