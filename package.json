@@ -60,6 +60,7 @@
     "@eslint/js": "^9.9.0",
     "@types/bun": "latest",
     "@types/ioredis": "^5.0.0",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^22.5.0",
     "@typescript-eslint/parser": "^8.2.0",
     "@vitest/ui": "^2.0.5",
