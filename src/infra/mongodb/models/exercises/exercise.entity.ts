@@ -5,10 +5,10 @@ export interface IExercise {
   name: string
   gifUrl: string
   instructions: string[]
-  targetMuscles: { targetMuscleId: string }[]
-  bodyParts: { bodyPartId: string }[]
-  equipments: { equipmentId: string }[]
-  secondaryMuscles: { secondaryMuscleId: string }[]
+  targetMuscles: string[]
+  bodyParts: string[]
+  equipments: string[]
+  secondaryMuscles: string[]
 }
 export type UpdateExerciseBody = Partial<IExercise>
 export interface IExerciseDoc extends IExercise, Document {}
