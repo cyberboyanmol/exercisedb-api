@@ -1,37 +1,38 @@
 import { Routes } from '#common/types/route.type.js'
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
-import { MuscleModel } from '../models/muscle.model'
-import { MuscleService } from '../services'
+import { EquipmentModel } from '../models/equipment.model'
+import { EquipmentService } from '../services'
 import Muscle from '#infra/mongodb/models/muscles/muscle.schema.js'
+import Equipment from '#infra/mongodb/models/equipments/equipment.schema.js'
 
-export class MuscleController implements Routes {
+export class EquipmentController implements Routes {
   public controller: OpenAPIHono
-  private readonly muscleService: MuscleService
+  private readonly equipmentService: EquipmentService
   constructor() {
     this.controller = new OpenAPIHono()
-    this.muscleService = new MuscleService(Muscle)
+    this.equipmentService = new EquipmentService(Equipment)
   }
 
   public initRoutes() {
     this.controller.openapi(
       createRoute({
         method: 'post',
-        path: '/muscles',
-        tags: ['Muscles'],
-        summary: 'Add a new muscle to the database',
-        description: 'This route is used to add a new muscle name to the database.',
-        operationId: 'createMuscle',
+        path: '/equipments',
+        tags: ['Equipments'],
+        summary: 'Add a new equipment to the database',
+        description: 'This route is used to add a new equipment name to the database.',
+        operationId: 'createEquipment',
         request: {
           body: {
             content: {
               'application/json': {
                 schema: z.object({
                   name: z.string().openapi({
-                    title: 'Muscle Name',
-                    description: 'The name of the muscle to be added',
+                    title: 'Equipment Name',
+                    description: 'The name of the equipment to be added',
                     type: 'string',
-                    example: 'Biceps Brachii'
+                    example: 'cable'
                   })
                 })
               }
@@ -40,7 +41,7 @@ export class MuscleController implements Routes {
         },
         responses: {
           201: {
-            description: 'Muscle successfully added to the database',
+            description: 'equipment successfully added to the database',
             content: {
               'application/json': {
                 schema: z.object({
@@ -49,9 +50,9 @@ export class MuscleController implements Routes {
                     type: 'boolean',
                     example: true
                   }),
-                  data: z.array(MuscleModel).openapi({
-                    title: 'Added Muscle',
-                    description: 'The newly added muscle data'
+                  data: z.array(EquipmentModel).openapi({
+                    title: 'Added Equipment',
+                    description: 'The newly added equipment data'
                   })
                 })
               }
@@ -69,7 +70,7 @@ export class MuscleController implements Routes {
             }
           },
           409: {
-            description: 'Conflict - Muscle name already exists'
+            description: 'Conflict - equipment name already exists'
           },
           500: {
             description: 'Internal server error'
@@ -78,21 +79,21 @@ export class MuscleController implements Routes {
       }),
       async (ctx) => {
         const body = await ctx.req.json()
-        const response = await this.muscleService.createMuscle(body)
+        const response = await this.equipmentService.createEquipment(body)
         return ctx.json({ success: true, data: [response] })
       }
     )
     this.controller.openapi(
       createRoute({
         method: 'get',
-        path: '/muscles',
-        tags: ['Muscles'],
-        summary: 'Retrive all muscles.',
-        description: 'Retrive list of all the muscles.',
+        path: '/equipments',
+        tags: ['Equipments'],
+        summary: 'Retrive all equipments.',
+        description: 'Retrive list of all equipments.',
         operationId: 'getMuscles',
         responses: {
           200: {
-            description: 'Successful response with list of all muscles.',
+            description: 'Successful response with list of all equipments.',
             content: {
               'application/json': {
                 schema: z.object({
@@ -101,8 +102,8 @@ export class MuscleController implements Routes {
                     type: 'boolean',
                     example: true
                   }),
-                  data: z.array(MuscleModel).openapi({
-                    description: 'Array of Muslces.'
+                  data: z.array(EquipmentModel).openapi({
+                    description: 'Array of equipments.'
                   })
                 })
               }
@@ -114,7 +115,7 @@ export class MuscleController implements Routes {
         }
       }),
       async (ctx) => {
-        const response = await this.muscleService.getMuscles()
+        const response = await this.equipmentService.getEquipments()
         return ctx.json({ success: true, data: response })
       }
     )

@@ -1,4 +1,4 @@
 import { z } from 'zod'
-export const MuscleModel = z.object({
+export const EquipmentModel = z.object({
   name: z.string()
 })
