@@ -5,17 +5,31 @@ import { prettyJSON } from 'hono/pretty-json'
 import { Home } from './pages/home'
 import { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
+import { DalService } from './dal/mongodb/dal.service'
 
 export class App {
   private app: OpenAPIHono
-
+  private dalService: DalService
   constructor(routes: Routes[]) {
     this.app = new OpenAPIHono()
-    this.initializeGlobalMiddleware()
-    this.initializeRoutes(routes)
-    this.initializeSwaggerUI()
-    this.initializeRouteFallback()
-    this.initializeErrorHandler()
+    this.dalService = new DalService()
+    this.initializeApp(routes)
+  }
+  private async initializeApp(routes: Routes[]) {
+    try {
+      await this.initializeDatabase()
+      this.initializeGlobalMiddleware()
+      this.initializeRoutes(routes)
+      this.initializeSwaggerUI()
+      this.initializeRouteFallback()
+      this.initializeErrorHandler()
+    } catch (error) {
+      console.error('Failed to initialize application:', error)
+      process.exit(1) // Exit the process if initialization fails
+    }
+  }
+  private async initializeDatabase() {
+    await this.dalService.connect(process.env.EXERCISEDB_DATABASE!)
   }
 
   private initializeRoutes(routes: Routes[]) {

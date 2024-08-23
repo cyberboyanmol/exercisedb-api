@@ -46,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "hono": "^4.5.8",
     "ioredis": "^5.4.1",
+    "mongoose": "^8.5.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
