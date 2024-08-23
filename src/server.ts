@@ -1,7 +1,5 @@
+import { BodyPartController, EquipmentController, MuscleController } from './modules'
 import { DalService } from '#infra/mongodb/dal.service.js'
-import { BodyPartController } from '#modules/bodyparts/controllers/bodyPart.controller.js'
-import { EquipmentController } from '#modules/equipments/controllers/equipment.controller.js'
-import { MuscleController } from '#modules/muscle/controllers'
 import { App } from './app'
 
 const dalService = new DalService()

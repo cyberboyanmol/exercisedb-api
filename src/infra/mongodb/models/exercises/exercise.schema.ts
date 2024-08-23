@@ -29,7 +29,8 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     ],
     targetMuscles: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        trim: true,
         ref: 'Muscle',
         required: true,
         unique: true,
@@ -38,8 +39,9 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     ],
     bodyParts: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'BodyPart',
+        trim: true,
         required: true,
         unique: true,
         index: true
@@ -47,8 +49,9 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     ],
     equipments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Equipment',
+        trim: true,
         required: true,
         unique: true,
         index: true
@@ -56,7 +59,7 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     ],
     secondaryMuscles: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Muscle',
         required: true,
         unique: true,
