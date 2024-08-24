@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import { IExerciseDoc, IExerciseModel } from './exercise.entity'
-import toJSON from '../../plugins/toJSON/toJSON'
+import toJSONWithoutId from '#infra/mongodb/plugins/toJSONWithoutId/toJSONWithoutId.js'
 const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
   {
     exerciseId: {
@@ -31,36 +31,24 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     targetMuscles: [
       {
         type: String,
-        ref: 'Muscle',
-        required: true,
-        unique: true,
         index: true
       }
     ],
     bodyParts: [
       {
         type: String,
-        ref: 'BodyPart',
-        required: true,
-        unique: true,
         index: true
       }
     ],
     equipments: [
       {
         type: String,
-        ref: 'Equipment',
-        required: true,
-        unique: true,
         index: true
       }
     ],
     secondaryMuscles: [
       {
         type: String,
-        ref: 'Muscle',
-        required: true,
-        unique: true,
         index: true
       }
     ]
@@ -70,7 +58,7 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
   }
 )
 
-exerciseSchema.plugin(toJSON)
+exerciseSchema.plugin(toJSONWithoutId)
 
 /**
  * check if the similar equipment name already exists

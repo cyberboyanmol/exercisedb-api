@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import toJSON from '../../plugins/toJSON/toJSON'
 import { IMuscleDoc, IMuscleModel } from './muscle.entity'
+import toJSONWithoutId from '#infra/mongodb/plugins/toJSONWithoutId/toJSONWithoutId.js'
 
 const muscleSchema = new mongoose.Schema<IMuscleDoc, IMuscleModel>(
   {
@@ -18,7 +18,7 @@ const muscleSchema = new mongoose.Schema<IMuscleDoc, IMuscleModel>(
   }
 )
 // add plugin that converts mongoose to json
-muscleSchema.plugin(toJSON)
+muscleSchema.plugin(toJSONWithoutId)
 
 /**
  * check if the similar muscle name already exists

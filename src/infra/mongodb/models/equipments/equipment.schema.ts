@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import toJSON from '../../plugins/toJSON/toJSON'
 import { IEquipmentDoc, IEquipmentModel } from './equipment.entity'
+import toJSONWithoutId from '#infra/mongodb/plugins/toJSONWithoutId/toJSONWithoutId.js'
 
 const equipmentSchema = new mongoose.Schema<IEquipmentDoc, IEquipmentModel>(
   {
@@ -19,7 +19,7 @@ const equipmentSchema = new mongoose.Schema<IEquipmentDoc, IEquipmentModel>(
 )
 
 // add plugin that converts mongoose to json
-equipmentSchema.plugin(toJSON)
+equipmentSchema.plugin(toJSONWithoutId)
 
 /**
  * check if the similar equipment name already exists

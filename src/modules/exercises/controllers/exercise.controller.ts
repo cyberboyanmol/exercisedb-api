@@ -145,41 +145,74 @@ export class ExerciseController implements Routes {
         return ctx.json({ success: true, data: [response] })
       }
     )
-    // this.controller.openapi(
-    //   createRoute({
-    //     method: 'get',
-    //     path: '/muscles',
-    //     tags: ['Muscles'],
-    //     summary: 'Retrive all muscles.',
-    //     description: 'Retrive list of all the muscles.',
-    //     operationId: 'getMuscles',
-    //     responses: {
-    //       200: {
-    //         description: 'Successful response with list of all muscles.',
-    //         content: {
-    //           'application/json': {
-    //             schema: z.object({
-    //               success: z.boolean().openapi({
-    //                 description: 'Indicates whether the request was successful',
-    //                 type: 'boolean',
-    //                 example: true
-    //               }),
-    //               data: z.array(MuscleModel).openapi({
-    //                 description: 'Array of Muslces.'
-    //               })
-    //             })
-    //           }
-    //         }
-    //       },
-    //       500: {
-    //         description: 'Internal server error'
-    //       }
-    //     }
-    //   }),
-    //   async (ctx) => {
-    //     const response = await this.muscleService.getMuscles()
-    //     return ctx.json({ success: true, data: response })
-    //   }
-    // )
+    this.controller.openapi(
+      createRoute({
+        method: 'get',
+        path: '/exercises',
+        tags: ['Exercises'],
+        summary: 'Retrive all exercises.',
+        description: 'Retrive list of all the exercises.',
+        operationId: 'getMuscles',
+        request: {
+          query: z.object({
+            offset: z.coerce.number().nonnegative().optional().openapi({
+              title: '',
+              description: 'Number of exercises to skip',
+              type: 'number',
+              example: 10,
+              default: 0
+            }),
+            limit: z.coerce.number().positive().max(100).optional().openapi({
+              title: '',
+              description: 'Maximum number of exercises to return',
+              maximum: 100,
+              minimum: 1,
+              type: 'number',
+              example: 10,
+              default: 10
+            })
+          })
+        },
+        responses: {
+          200: {
+            description: 'Successful response with list of all exercises.',
+            content: {
+              'application/json': {
+                schema: z.object({
+                  success: z.boolean().openapi({
+                    description: 'Indicates whether the request was successful',
+                    type: 'boolean',
+                    example: true
+                  }),
+                  data: z.array(ExerciseModel).openapi({
+                    description: 'Array of Exercises.'
+                  })
+                })
+              }
+            }
+          },
+          500: {
+            description: 'Internal server error'
+          }
+        }
+      }),
+      async (ctx) => {
+        const { offset, limit = 10 } = ctx.req.valid('query')
+        const { origin, pathname } = new URL(ctx.req.url)
+        const response = await this.exerciseService.getExercise({ offset, limit })
+        return ctx.json({
+          success: true,
+          data: {
+            previousPage: response.currentPage
+              ? `${origin}${pathname}?offset=${(response.currentPage - 1) * limit}&limit=${limit}`
+              : null,
+            nextPage: response.currentPage
+              ? `${origin}${pathname}?offset=${response.currentPage * limit}&limit=${limit}`
+              : null,
+            ...response
+          }
+        })
+      }
+    )
   }
 }

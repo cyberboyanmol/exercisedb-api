@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import toJSON from '../../plugins/toJSON/toJSON'
 import { IBodyPartDoc, IBodyPartModel } from './bodypart.entity'
+import toJSONWithoutId from '#infra/mongodb/plugins/toJSONWithoutId/toJSONWithoutId.js'
 const bodyPartSchema = new mongoose.Schema<IBodyPartDoc, IBodyPartModel>(
   {
     name: {
@@ -18,7 +18,7 @@ const bodyPartSchema = new mongoose.Schema<IBodyPartDoc, IBodyPartModel>(
 )
 
 // add plugin that converts mongoose to json
-bodyPartSchema.plugin(toJSON)
+bodyPartSchema.plugin(toJSONWithoutId)
 
 /**
  * check if the similar bodyPart name already exists
