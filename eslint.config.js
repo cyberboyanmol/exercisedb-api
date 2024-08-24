@@ -6,7 +6,7 @@ export default [
   ...tseslint.configs.recommended,
   pluginJs.configs.recommended,
   {
-    ignores: ['dist/*']
+    ignores: ['dist/*', 'seed/*']
   },
   {
     files: ['src/**/*.ts'],

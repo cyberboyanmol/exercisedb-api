@@ -31,7 +31,7 @@ export class EquipmentController implements Routes {
                     title: 'Equipment Name',
                     description: 'The name of the equipment to be added',
                     type: 'string',
-                    example: 'cable'
+                    example: 'band'
                   })
                 })
               }

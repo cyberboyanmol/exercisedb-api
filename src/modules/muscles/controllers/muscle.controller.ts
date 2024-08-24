@@ -31,7 +31,7 @@ export class MuscleController implements Routes {
                     title: 'Muscle Name',
                     description: 'The name of the muscle to be added',
                     type: 'string',
-                    example: 'Biceps Brachii'
+                    example: 'biceps'
                   })
                 })
               }

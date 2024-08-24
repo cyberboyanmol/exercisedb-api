@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose'
+import mongoose, { Document, Model } from 'mongoose'
 
 export interface IExercise {
   exerciseId: string
@@ -12,4 +12,6 @@ export interface IExercise {
 }
 export type UpdateExerciseBody = Partial<IExercise>
 export interface IExerciseDoc extends IExercise, Document {}
-export type IExerciseModel = Model<IExerciseDoc>
+export interface IExerciseModel extends Model<IExerciseDoc> {
+  isExerciseExist(exerciseId: string, excludeExerciseId?: mongoose.ObjectId): Promise<boolean>
+}

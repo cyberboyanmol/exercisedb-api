@@ -9,7 +9,8 @@ const equipmentSchema = new mongoose.Schema<IEquipmentDoc, IEquipmentModel>(
       required: true,
       trim: true,
       unique: true,
-      index: true
+      index: true,
+      lowercase: true
     }
   },
   {

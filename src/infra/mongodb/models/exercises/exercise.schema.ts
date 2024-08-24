@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { IExerciseDoc, IExerciseModel } from './exercise.entity'
 import toJSON from '../../plugins/toJSON/toJSON'
 const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
@@ -13,7 +13,8 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      lowercase: true
     },
     gifUrl: {
       type: String,
@@ -30,7 +31,6 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     targetMuscles: [
       {
         type: String,
-        trim: true,
         ref: 'Muscle',
         required: true,
         unique: true,
@@ -41,7 +41,6 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
       {
         type: String,
         ref: 'BodyPart',
-        trim: true,
         required: true,
         unique: true,
         index: true
@@ -51,7 +50,6 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
       {
         type: String,
         ref: 'Equipment',
-        trim: true,
         required: true,
         unique: true,
         index: true
@@ -73,6 +71,23 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
 )
 
 exerciseSchema.plugin(toJSON)
+
+/**
+ * check if the similar equipment name already exists
+ * @param {string} name
+ *@returns {Promise<boolean>}
+ */
+
+exerciseSchema.static(
+  'isExerciseExist',
+  async function (exerciseId: string, excludeExerciseId: mongoose.ObjectId): Promise<boolean> {
+    const exercise = await this.findOne({
+      exerciseId,
+      _id: { $ne: excludeExerciseId }
+    })
+    return !!exercise
+  }
+)
 const Exercise = mongoose.model<IExerciseDoc, IExerciseModel>('Exercise', exerciseSchema)
 
 export default Exercise

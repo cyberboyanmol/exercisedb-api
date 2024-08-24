@@ -9,7 +9,8 @@ const muscleSchema = new mongoose.Schema<IMuscleDoc, IMuscleModel>(
       required: true,
       trim: true,
       unique: true,
-      index: true
+      index: true,
+      lowercase: true
     }
   },
   {

@@ -8,7 +8,8 @@ const bodyPartSchema = new mongoose.Schema<IBodyPartDoc, IBodyPartModel>(
       required: true,
       trim: true,
       unique: true,
-      index: true
+      index: true,
+      lowercase: true
     }
   },
   {
