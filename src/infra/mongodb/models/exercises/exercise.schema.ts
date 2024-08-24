@@ -30,26 +30,22 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
     ],
     targetMuscles: [
       {
-        type: String,
-        index: true
+        type: String
       }
     ],
     bodyParts: [
       {
-        type: String,
-        index: true
+        type: String
       }
     ],
     equipments: [
       {
-        type: String,
-        index: true
+        type: String
       }
     ],
     secondaryMuscles: [
       {
-        type: String,
-        index: true
+        type: String
       }
     ]
   },
@@ -59,7 +55,13 @@ const exerciseSchema = new mongoose.Schema<IExerciseDoc, IExerciseModel>(
 )
 
 exerciseSchema.plugin(toJSONWithoutId)
-
+exerciseSchema.index({
+  name: 'text',
+  targetMuscles: 'text',
+  bodyParts: 'text',
+  equipments: 'text',
+  secondaryMuscles: 'text'
+})
 /**
  * check if the similar equipment name already exists
  * @param {string} name

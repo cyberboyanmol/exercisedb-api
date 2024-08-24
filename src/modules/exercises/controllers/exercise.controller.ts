@@ -152,19 +152,29 @@ export class ExerciseController implements Routes {
         tags: ['Exercises'],
         summary: 'Retrive all exercises.',
         description: 'Retrive list of all the exercises.',
-        operationId: 'getMuscles',
+        operationId: 'getExercises',
         request: {
           query: z.object({
+            search: z.string().optional().openapi({
+              title: 'Search Query',
+              description:
+                'A string to filter exercises based on a search term. This can be used to find specific exercises by name or description.',
+              type: 'string',
+              example: 'cardio',
+              default: ''
+            }),
             offset: z.coerce.number().nonnegative().optional().openapi({
-              title: '',
-              description: 'Number of exercises to skip',
+              title: 'Offset',
+              description:
+                'The number of exercises to skip from the start of the list. Useful for pagination to fetch subsequent pages of results.',
               type: 'number',
               example: 10,
               default: 0
             }),
             limit: z.coerce.number().positive().max(100).optional().openapi({
-              title: '',
-              description: 'Maximum number of exercises to return',
+              title: 'Limit',
+              description:
+                'The maximum number of exercises to return in the response. Limits the number of results for pagination purposes.',
               maximum: 100,
               minimum: 1,
               type: 'number',
@@ -197,9 +207,9 @@ export class ExerciseController implements Routes {
         }
       }),
       async (ctx) => {
-        const { offset, limit = 10 } = ctx.req.valid('query')
+        const { offset, limit = 10, search } = ctx.req.valid('query')
         const { origin, pathname } = new URL(ctx.req.url)
-        const response = await this.exerciseService.getExercise({ offset, limit })
+        const response = await this.exerciseService.getExercise({ offset, limit, search })
         return ctx.json({
           success: true,
           data: {
