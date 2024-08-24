@@ -40,6 +40,8 @@
     "lint:fix": "bun run lint --fix",
     "test": "vitest run",
     "test:ui": "vitest --ui",
+    "deploy": "vercel deploy --prod",
+    "release": "bun run test && bun run changelogen --release --push",
     "postinstall": "npx simple-git-hooks"
   },
   "simple-git-hooks": {
@@ -67,6 +69,7 @@
     "@typescript-eslint/parser": "^8.2.0",
     "@vitest/ui": "^2.0.5",
     "bun-types": "^1.1.25",
+    "changelogen": "^0.5.5",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
