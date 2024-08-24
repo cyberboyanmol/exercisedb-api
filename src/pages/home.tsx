@@ -71,6 +71,11 @@ Home.get('/', (c) => {
             }`
           }}
         />
+        <script
+          defer
+          src="https://umami-cyberboy.vercel.app/script.js"
+          data-website-id="03d22392-6c56-4238-8c01-4999661182d8"
+        ></script>
       </head>{' '}
       <body class="bg-black mx-auto md:min-h-screen max-w-screen-lg flex flex-col">
         <main class="mx-auto my-auto flex flex-col space-y-8 px-4 pb-8 md:py-10 relative overflow-y-hidden overflow-x-hidden">
