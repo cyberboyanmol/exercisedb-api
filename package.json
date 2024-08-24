@@ -38,6 +38,8 @@
     "format": "prettier --write \"./**/*.{js,ts,json}\"",
     "lint": "eslint .",
     "lint:fix": "bun run lint --fix",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
     "postinstall": "npx simple-git-hooks"
   },
   "simple-git-hooks": {

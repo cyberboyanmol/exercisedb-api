@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  relase:
+    name: Test and Deploy to Staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1.2.0
+      - run: bun install
+
+      - name: Run Tests
+        run: bun run test
+
+      - name: Deploy to Staging
+        id: deploy-vercel-staging
+        uses: amondnet/vercel-action@v25.2.0
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXERCISEDB}}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
