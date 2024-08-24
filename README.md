@@ -1,11 +1,3 @@
-To install dependencies:
-```sh
-bun install
-```
+# ExerciseDB API
 
-To run:
-```sh
-bun run dev
-```
-
-open http://localhost:3000
+# WORK IN DEVELOPMENT
