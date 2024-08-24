@@ -20,7 +20,7 @@ export class DalService {
       }
     } catch (error) {
       console.error('Error connecting to the database:', error)
-      process.exit(1)
+      throw new Error('Error connecting to the database')
     }
   }
 

@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { MuscleModel } from '../models/muscle.model'
 import { MuscleService } from '../services'
 import Muscle from '#infra/mongodb/models/muscles/muscle.schema.js'
+import { HTTPException } from 'hono/http-exception'
 
 export class MuscleController implements Routes {
   public controller: OpenAPIHono
@@ -77,9 +78,24 @@ export class MuscleController implements Routes {
         }
       }),
       async (ctx) => {
-        const body = await ctx.req.json()
-        const response = await this.muscleService.createMuscle(body)
-        return ctx.json({ success: true, data: [response] })
+        try {
+          const body = await ctx.req.json()
+          console.log('Received body:', body)
+
+          const startTime = Date.now()
+          const response = await this.muscleService.createMuscle(body)
+          const endTime = Date.now()
+
+          console.log(`createMuscle operation completed in ${endTime - startTime}ms`)
+
+          return ctx.json({ success: true, data: [response] }, 201)
+        } catch (error) {
+          console.error('Error in createMuscle:', error)
+          if (error instanceof HTTPException) {
+            return ctx.json({ success: false, error: error.message }, error.status)
+          }
+          return ctx.json({ success: false, error: 'Internal Server Error' }, 500)
+        }
       }
     )
     this.controller.openapi(

@@ -24,7 +24,7 @@ export class App {
       this.initializeErrorHandler()
     } catch (error) {
       console.error('Failed to initialize application:', error)
-      process.exit(1) // Exit the process if initialization fails
+      throw new Error('Failed to initialize application')
     }
   }
 
