@@ -34,7 +34,6 @@ export class GetExercisesUseCase implements IUseCase<GetExerciseArgs, GetExercis
         exercises: result
       }
     } catch (error) {
-      console.error('Error fetching exercises:', error)
       throw new Error('Failed to fetch exercises')
     }
   }

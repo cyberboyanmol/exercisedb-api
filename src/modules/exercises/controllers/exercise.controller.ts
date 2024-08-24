@@ -224,5 +224,59 @@ export class ExerciseController implements Routes {
         })
       }
     )
+    // autocomplete endpoint
+    this.controller.openapi(
+      createRoute({
+        method: 'get',
+        path: '/exercises/autocomplete',
+        tags: ['Exercises'],
+        summary: 'Autocomplete Exercise Search',
+        description:
+          'Retrieves a list of exercise names that match the search term using fuzzy search. This endpoint provides autocomplete suggestions based on the MongoDB autocomplete feature, helping users find exercises quickly as they type.',
+        operationId: 'autocompleteExercises',
+        request: {
+          query: z.object({
+            search: z.string().optional().openapi({
+              title: 'Search Term',
+              description:
+                'A string used to filter exercises based on a search term. Supports fuzzy matching to suggest relevant exercise names as the user types.',
+              type: 'string',
+              example: 'cardio',
+              default: ''
+            })
+          })
+        },
+        responses: {
+          200: {
+            description: 'Successful response with a list of exercise name suggestions.',
+            content: {
+              'application/json': {
+                schema: z.object({
+                  success: z.boolean().openapi({
+                    description: 'Indicates whether the request was successful.',
+                    type: 'boolean',
+                    example: true
+                  }),
+                  data: z.array(z.string()).openapi({
+                    description: 'Array of suggested exercise names based on the search term.'
+                  })
+                })
+              }
+            }
+          },
+          500: {
+            description: 'Internal server error'
+          }
+        }
+      }),
+      async (ctx) => {
+        const { search } = ctx.req.valid('query')
+        const response = await this.exerciseService.getAutoCompleteSuggestions({ search })
+        return ctx.json({
+          success: true,
+          data: response
+        })
+      }
+    )
   }
 }
