@@ -6,7 +6,7 @@ import { Home } from './pages/home'
 import { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
 import { DalService } from './infra/mongodb/dal.service'
-
+import { cors } from 'hono/cors'
 export class App {
   private app: OpenAPIHono
   private dalService: DalService
@@ -37,6 +37,12 @@ export class App {
   }
 
   private initializeGlobalMiddleware() {
+    this.app.use(
+      cors({
+        origin: '*',
+        allowMethods: ['GET', 'POST', 'OPTIONS']
+      })
+    )
     this.app.use(logger())
     this.app.use(prettyJSON())
   }

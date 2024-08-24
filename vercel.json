@@ -1,11 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [{ "source": "(.*)", "destination": "/api" }],
-  "regions": ["bom1"],
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/**/*": {
+      "runtime": "edge"
+    }
+  },
+  "rewrites": [{ "source": "(.*)", "destination": "/api" }],
   "headers": [
     {
-      "source": "(.*)",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -17,7 +22,7 @@
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST, OPTIONS"
+          "value": "GET,POST,OPTIONS"
         },
         {
           "key": "Cache-Control",
