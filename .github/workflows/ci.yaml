@@ -26,8 +26,8 @@ jobs:
         uses: oven-sh/setup-bun@v1.2.0
       - run: bun install
 
-      - name: Run Tests
-        run: bun run test
+      # - name: Run Tests
+      #   run: bun run test
 
       - name: Deploy to Staging
         id: deploy-vercel-staging

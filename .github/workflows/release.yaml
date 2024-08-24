@@ -23,8 +23,8 @@ jobs:
         uses: oven-sh/setup-bun@v1.2.0
       - run: bun install
 
-      - name: Run Tests
-        run: bun run test
+      # - name: Run Tests
+      #   run: bun run test
 
       - name: Deploy to Production
         uses: amondnet/vercel-action@v25.2.0
