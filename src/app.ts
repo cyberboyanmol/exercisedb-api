@@ -7,6 +7,7 @@ import { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
 import { DalService } from './infra/mongodb/dal.service'
 import { cors } from 'hono/cors'
+import { authMiddleware } from './middleware/auth'
 export class App {
   private app: OpenAPIHono
   private dalService: DalService
@@ -43,8 +44,16 @@ export class App {
         allowMethods: ['GET', 'POST', 'OPTIONS']
       })
     )
+
     this.app.use(logger())
     this.app.use(prettyJSON())
+    this.app.use(async (c, next) => {
+      const start = Date.now()
+      await next()
+      const end = Date.now()
+      c.res.headers.set('X-Response-Time', `${end - start}ms`)
+    })
+    this.app.use(authMiddleware)
   }
 
   private initializeSwaggerUI() {

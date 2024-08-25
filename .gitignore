@@ -4,3 +4,5 @@ node_modules/
 dist
 seed
 .vercel
+staging.vercel
+production.vercel

@@ -2,7 +2,7 @@ import { IUserDoc } from '#infra/mongodb/models/users/user.entity.js'
 import crypto from 'crypto'
 import * as jwt from 'jsonwebtoken'
 import { authenticator } from 'otplib'
-export type JwtPayloadInterface = Pick<IUserDoc, 'id' | 'role'>
+export type JwtPayloadInterface = Pick<IUserDoc, 'id' | 'role' | 'isActivated'>
 
 export class CryptoService {
   public generateOtpSecret() {
@@ -25,7 +25,8 @@ export class CryptoService {
     }
     const payload: JwtPayloadInterface = {
       id: user.id,
-      role: user.role
+      role: user.role,
+      isActivated: user.isActivated
     }
     const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN_SECRET!, options)
     return accessToken

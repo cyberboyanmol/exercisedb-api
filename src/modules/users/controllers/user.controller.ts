@@ -60,6 +60,14 @@ export class UserController implements Routes {
                         title: 'user email',
                         description: 'user email address'
                       }),
+                      role: z.string().openapi({
+                        title: 'user role',
+                        description: 'user active role'
+                      }),
+                      isActivated: z.string().openapi({
+                        title: 'activation status',
+                        description: 'user account activation status'
+                      }),
                       otpSecret: z.string().openapi({
                         title: 'Otp Secret',
                         description: 'otp secret for adding in authenticator app'
