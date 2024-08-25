@@ -15,7 +15,8 @@ export class UserService {
   }
 
   createUser = (args: CreateUserArgs) => {
-    return this.createUserUseCase.execute(args)
+    const newUser = this.createUserUseCase.execute(args)
+    return newUser
   }
 
   authenticate = async (args: AuthenticateUserArgs) => {
