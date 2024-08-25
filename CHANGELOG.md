@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/cyberboyanmol/exercisedb-api/compare/v0.0.2...v0.0.3)
+
+### 🚀 Enhancements
+
+- **user:** Added user entity ([2bf3122](https://github.com/cyberboyanmol/exercisedb-api/commit/2bf3122))
+- **authentication:** 🔒️  add register user and authenticate route ([779c652](https://github.com/cyberboyanmol/exercisedb-api/commit/779c652))
+- **authmiddleware:** Added rbac middleware as global route for preventing post endpoints ([4998a03](https://github.com/cyberboyanmol/exercisedb-api/commit/4998a03))
+
+### 🩹 Fixes
+
+- **core:** Update autocomplete aggregate query by remove _id ([0710e5b](https://github.com/cyberboyanmol/exercisedb-api/commit/0710e5b))
+
+### ❤️ Contributors
+
+- Anmol Gangwar <anmolgangwar64@gmail.com>
+
 ## v0.0.2
 
 
