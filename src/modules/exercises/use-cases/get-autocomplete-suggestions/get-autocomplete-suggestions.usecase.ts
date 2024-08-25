@@ -33,6 +33,7 @@ export class GetAutoCompleteSuggestionsUseCase implements IUseCase<GetAutoComple
             name: 1,
             gifUrl: 1,
             exerciseId: 1,
+            _id:0,
             score: { $meta: 'searchScore' }
           }
         },
