@@ -134,7 +134,7 @@ export class BodyPartController implements Routes {
         method: 'get',
         path: '/bodyparts/{bodyPartName}/exercises',
         tags: ['BodyParts'],
-        summary: 'Retrive all exercises by bodyPart',
+        summary: 'Retrive exercises by bodyPart',
         description: 'Retrive list of all bodyparts.',
         operationId: 'getExercisesByBodyPart',
         request: {
