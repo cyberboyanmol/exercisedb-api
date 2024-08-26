@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { EquipmentModel } from '../models/equipment.model'
 import { EquipmentService } from '../services'
 import Equipment from '#infra/mongodb/models/equipments/equipment.schema.js'
+import { HTTPException } from 'hono/http-exception'
 
 export class EquipmentController implements Routes {
   public controller: OpenAPIHono
@@ -77,9 +78,17 @@ export class EquipmentController implements Routes {
         }
       }),
       async (ctx) => {
-        const body = await ctx.req.json()
-        const response = await this.equipmentService.createEquipment(body)
-        return ctx.json({ success: true, data: [response] })
+        try {
+          const body = await ctx.req.json()
+          const response = await this.equipmentService.createEquipment(body)
+          return ctx.json({ success: true, data: [response] })
+        } catch (error) {
+          console.error('Error in adding equipment:', error)
+          if (error instanceof HTTPException) {
+            return ctx.json({ success: false, error: error.message }, error.status)
+          }
+          return ctx.json({ success: false, error: 'Internal Server Error' }, 500)
+        }
       }
     )
     this.controller.openapi(

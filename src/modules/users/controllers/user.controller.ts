@@ -5,7 +5,6 @@ import { HTTPException } from 'hono/http-exception'
 import { UserService } from '../services'
 import User from '#infra/mongodb/models/users/user.schema.js'
 import { IUserDoc } from '#infra/mongodb/models/users/user.entity'
-import pick from '#common/helpers/pick.js'
 export class UserController implements Routes {
   public controller: OpenAPIHono
   private readonly userService: UserService

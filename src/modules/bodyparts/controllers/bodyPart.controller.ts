@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { BodyPartService } from '../services'
 import BodyPart from '#infra/mongodb/models/bodyparts/bodypart.schema.js'
 import { BodyPartModel } from '../models/bodyPart.model'
+import { HTTPException } from 'hono/http-exception'
 
 export class BodyPartController implements Routes {
   public controller: OpenAPIHono
@@ -77,9 +78,17 @@ export class BodyPartController implements Routes {
         }
       }),
       async (ctx) => {
-        const body = await ctx.req.json()
-        const response = await this.bodyPartService.createBodyPart(body)
-        return ctx.json({ success: true, data: [response] })
+        try {
+          const body = await ctx.req.json()
+          const response = await this.bodyPartService.createBodyPart(body)
+          return ctx.json({ success: true, data: [response] })
+        } catch (error) {
+          console.error('Error in adding bodypart:', error)
+          if (error instanceof HTTPException) {
+            return ctx.json({ success: false, error: error.message }, error.status)
+          }
+          return ctx.json({ success: false, error: 'Internal Server Error' }, 500)
+        }
       }
     )
     this.controller.openapi(

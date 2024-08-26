@@ -80,13 +80,8 @@ export class MuscleController implements Routes {
       async (ctx) => {
         try {
           const body = await ctx.req.json()
-          console.log('Received body:', body)
 
-          const startTime = Date.now()
           const response = await this.muscleService.createMuscle(body)
-          const endTime = Date.now()
-
-          console.log(`createMuscle operation completed in ${endTime - startTime}ms`)
 
           return ctx.json({ success: true, data: [response] }, 201)
         } catch (error) {
