@@ -7,8 +7,8 @@ export class ViewImageUseCase implements IUseCase<string, any> {
 
   async execute(fileName: string): Promise<any> {
     const sourceUrl = fileName.endsWith('.gif')
-      ? `${process.env.SUPABASE_BUCKET_URL}/${fileName}`
-      : `${process.env.SUPABASE_BUCKET_URL}/${fileName}.gif`
+      ? `${process.env.SUPABASE_BUCKET_URL}/${process.env.SUPABASE_BUCKET_NAME}/${fileName}`
+      : `${process.env.SUPABASE_BUCKET_URL}/${process.env.SUPABASE_BUCKET_NAME}/${fileName}.gif`
 
     try {
       const response = await axios.get(sourceUrl, {
