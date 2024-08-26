@@ -22,7 +22,7 @@ For a detailed list of changes, see the [CHANGELOG](CHANGELOG.md).
 
    ```sh
    git clone https://github.com/cyberboyanmol/exercisedb-api
-   cd jiosaavn-api
+   cd exercisedb-api
    ```
 
 2. Install the required dependencies:
