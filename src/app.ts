@@ -97,6 +97,7 @@ export class App {
           description:
             'Access detailed data on over 1300+ exercises with the ExerciseDB API. This API offers extensive information on each exercise, including target body parts, equipment needed, GIFs for visual guidance, and step-by-step instructions.'
         },
+
         spec: {
           url: '/swagger'
         }

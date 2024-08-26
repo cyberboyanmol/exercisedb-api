@@ -87,14 +87,19 @@ export class ImagesController implements Routes {
         }
       }),
       async (ctx) => {
+        const { origin, pathname } = new URL(ctx.req.url)
         const body = await ctx.req.parseBody()
         const file = body['file'] as File
         if (!file || file.type !== 'image/gif') {
           return ctx.json({ success: false, error: 'Invalid file type. Only GIF files are allowed.' }, 400)
         }
 
-        const uploadResult = await this.imageService.uploadImage(file)
-        return ctx.json({ success: true, data: uploadResult })
+        const { publicUrl } = await this.imageService.uploadImage(file)
+
+        return ctx.json({
+          success: true,
+          data: { publicUrl: `${origin}/api/v1/Images/${publicUrl.split('/').slice(-1)}` }
+        })
       }
     )
     this.controller.openapi(
