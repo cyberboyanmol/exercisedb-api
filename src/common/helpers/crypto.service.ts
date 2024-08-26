@@ -35,7 +35,7 @@ export class CryptoService {
   public async verifyAccessToken(token: string) {
     const options: jwt.SignOptions = {
       algorithm: 'HS256',
-      issuer: 'accessToken'
+      issuer: 'ExerciseDB'
     }
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET!, options) as JwtPayloadInterface
     return decoded

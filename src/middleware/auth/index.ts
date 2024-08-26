@@ -29,6 +29,9 @@ export async function authMiddleware(c: Context, next: Next) {
   if (authenticationRoutes.includes(path) && process.env.NODE_ENV !== 'production') {
     return next()
   }
+  if (authenticationRoutes.includes(path) && process.env.NODE_ENV === 'production') {
+    return c.json({ success: false, error: 'SIGNUP | LOGIN is not available in the production environment.' }, 403)
+  }
 
   // Allow OPTIONS, HEAD, and other non-restricted methods for all
   if (!restrictedMethods.includes(method)) {
