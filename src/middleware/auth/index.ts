@@ -1,42 +1,62 @@
 import { CryptoService } from '#common/helpers/crypto.service.js'
 import { Context, Next } from 'hono'
-import { verify } from 'jsonwebtoken'
 
 type Role = 'member' | 'moderator' | 'admin'
 
-const ROLE_PERMISSIONS: Record<Role, string[]> = {
-  member: ['GET'],
-  moderator: ['GET', 'POST', 'PUT', 'PATCH'],
-  admin: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+const ROLE_PERMISSIONS: Record<Role, Set<string>> = {
+  member: new Set(['GET']),
+  moderator: new Set(['GET', 'POST', 'PUT', 'PATCH']),
+  admin: new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 }
 
-const restrictedMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
+const RESTRICTED_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
+const VALID_ROLES = new Set(['member', 'moderator', 'admin'])
 
-function isValidRole(role: string): role is Role {
-  return ['member', 'moderator', 'admin'].includes(role)
-}
 const cryptoService = new CryptoService()
-const authenticationRoutes = ['/api/v1/register', '/api/v1/authenticate']
 
-/**
- *   NOTE: REGISTRATION OF NEW USER ONLY ALLOWED IN STAGING EVIROMENT
- */
+interface RouteConfig {
+  path: string
+  allowedEnvs: Set<string>
+  skipAuth?: boolean
+  message?: string
+}
+
+const ROUTE_CONFIG: RouteConfig[] = [
+  {
+    path: '/api/v1/register',
+    allowedEnvs: new Set(['development', 'staging']),
+    skipAuth: true,
+    message: 'signup is not allowed in production'
+  },
+  { path: '/api/v1/authenticate', allowedEnvs: new Set(['development', 'staging', 'production']), skipAuth: true }
+  // Add more routes as needed
+]
+
 export async function authMiddleware(c: Context, next: Next) {
-  const method = c.req.method
-  const path = c.req.path
-  // Skip middleware for /register and /authenticate routes
+  const { method, path } = c.req
+  const currentEnv = process.env.NODE_ENV || 'development'
 
-  if (authenticationRoutes.includes(path) && process.env.NODE_ENV !== 'production') {
-    return next()
-  }
-  if (authenticationRoutes.includes(path) && process.env.NODE_ENV === 'production') {
-    return c.json({ success: false, error: 'SIGNUP | LOGIN is not available in the production environment.' }, 403)
+  const routeConfig = ROUTE_CONFIG.find((route) => route.path === path)
+
+  if (routeConfig) {
+    if (!routeConfig.allowedEnvs.has(currentEnv)) {
+      return c.json(
+        {
+          success: false,
+          error: routeConfig.message
+            ? routeConfig.message
+            : `This route is not available in the ${currentEnv} environment.`
+        },
+        403
+      )
+    }
+    if (routeConfig.skipAuth) {
+      return next()
+    }
   }
 
-  // Allow OPTIONS, HEAD, and other non-restricted methods for all
-  if (!restrictedMethods.includes(method)) {
-    return next()
-  }
+  if (!RESTRICTED_METHODS.has(method)) return next()
+
   const authorization = c.req.header('Authorization')
 
   if (!authorization) {
@@ -49,22 +69,15 @@ export async function authMiddleware(c: Context, next: Next) {
   }
 
   try {
-    const userPayload = await cryptoService.verifyAccessToken(token)
-
-    if (!isValidRole(userPayload.role)) {
-      return c.json({ success: false, error: 'Forbidden Request' }, 403)
-    }
-    const allowedMethods = ROLE_PERMISSIONS[userPayload.role]
-
-    if (!allowedMethods.includes(method)) {
+    const userPayload = cryptoService.verifyAccessToken(token)
+    if (!VALID_ROLES.has(userPayload.role) || !ROLE_PERMISSIONS[userPayload.role as Role].has(method)) {
       return c.json({ success: false, error: 'Forbidden' }, 403)
     }
 
     c.set('user', userPayload)
-
     await next()
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return c.json({ success: false, error: 'Invalid token' }, 401)
   }
 }

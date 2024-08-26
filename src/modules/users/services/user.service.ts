@@ -21,7 +21,7 @@ export class UserService {
 
   authenticate = async (args: AuthenticateUserArgs) => {
     const user = await this.authenticateUserUseCase.execute(args)
-    const token = await this.cryptoService.generateAccessToken(user)
+    const token = this.cryptoService.generateAccessToken(user)
     return {
       token
     }

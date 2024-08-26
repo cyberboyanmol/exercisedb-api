@@ -14,7 +14,7 @@ export class CryptoService {
       token: code
     })
   }
-  public async generateAccessToken(user: JwtPayloadInterface) {
+  public generateAccessToken(user: JwtPayloadInterface) {
     const options: jwt.SignOptions = {
       algorithm: 'HS256',
       expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRATION,
@@ -31,7 +31,7 @@ export class CryptoService {
     return accessToken
   }
 
-  public async verifyAccessToken(token: string) {
+  public verifyAccessToken(token: string) {
     const options: jwt.SignOptions = {
       algorithm: 'HS256',
       issuer: 'ExerciseDB'
