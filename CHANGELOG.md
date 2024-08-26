@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/cyberboyanmol/exercisedb-api/compare/v0.0.3...v0.0.4)
+
+### 🚀 Enhancements
+
+- **bodyPart:** Added route endpoint to get exercises by specific bodyPart ([387524d](https://github.com/cyberboyanmol/exercisedb-api/commit/387524d))
+- **equipments:** ⚡️  added route endpoint to get exercises by specific equipment ([d5786f2](https://github.com/cyberboyanmol/exercisedb-api/commit/d5786f2))
+- **muscles:** Added route endpoint to get exercises by specific muscle ([b3c8a9c](https://github.com/cyberboyanmol/exercisedb-api/commit/b3c8a9c))
+
+### 🩹 Fixes
+
+- 🐛  fixes invalid token error ([8c45438](https://github.com/cyberboyanmol/exercisedb-api/commit/8c45438))
+
+### ❤️ Contributors
+
+- Anmol Gangwar <anmolgangwar64@gmail.com>
+
 ## v0.0.3
 
 [compare changes](https://github.com/cyberboyanmol/exercisedb-api/compare/v0.0.2...v0.0.3)
@@ -43,7 +61,7 @@
 
 ### ❤️ Contributors
 
-- Anmol Gangwar <anmolgangwar64@gmail.com>
+- Anmol Gangwar 
 
 ## v1.1.0
 
@@ -69,5 +87,5 @@
 
 ### ❤️ Contributors
 
-- Anmol Gangwar <anmolgangwar64@gmail.com>
+- Anmol Gangwar 
 
