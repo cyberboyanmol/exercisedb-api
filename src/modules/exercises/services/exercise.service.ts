@@ -4,8 +4,13 @@ import {
   GetAutoCompleteSuggestionsArgs,
   GetAutoCompleteSuggestionsUseCase
 } from '../use-cases/get-autocomplete-suggestions'
-import { GetExerciseArgs, GetExercisesUseCase } from '../use-cases/get-exercises/get-exercise.usecase'
+import { GetExercisesArgs, GetExercisesUseCase } from '../use-cases/get-exercises/get-exercise.usecase'
 
+export interface GetExerciseSerivceArgs {
+  offset?: number
+  limit?: number
+  search?: string
+}
 export class ExerciseService {
   private readonly createExerciseUseCase: CreateExerciseUseCase
   private readonly getExercisesUseCase: GetExercisesUseCase
@@ -19,8 +24,13 @@ export class ExerciseService {
   createExercise = (params: CreateExerciseArgs) => {
     return this.createExerciseUseCase.execute(params)
   }
-  getExercise = (params: GetExerciseArgs) => {
-    return this.getExercisesUseCase.execute(params)
+  getExercise = (params: GetExerciseSerivceArgs) => {
+    const query: GetExercisesArgs = {
+      query: { ...(params.search && { $text: { $search: params.search } }) },
+      offset: params.offset,
+      limit: params.limit
+    }
+    return this.getExercisesUseCase.execute(query)
   }
   getAutoCompleteSuggestions = (params: GetAutoCompleteSuggestionsArgs) => {
     return this.getAutoCompleteSuggestionsUseCase.execute(params)

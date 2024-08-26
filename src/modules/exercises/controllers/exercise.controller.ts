@@ -213,12 +213,14 @@ export class ExerciseController implements Routes {
         return ctx.json({
           success: true,
           data: {
-            previousPage: response.currentPage
-              ? `${origin}${pathname}?offset=${(response.currentPage - 1) * limit}&limit=${limit}`
-              : null,
-            nextPage: response.currentPage
-              ? `${origin}${pathname}?offset=${response.currentPage * limit}&limit=${limit}`
-              : null,
+            previousPage:
+              response.currentPage > 1
+                ? `${origin}${pathname}?offset=${(response.currentPage - 1) * limit}&limit=${limit}`
+                : null,
+            nextPage:
+              response.currentPage < response.totalPages
+                ? `${origin}${pathname}?offset=${response.currentPage * limit}&limit=${limit}`
+                : null,
             ...response
           }
         })
