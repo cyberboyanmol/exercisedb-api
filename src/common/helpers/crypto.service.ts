@@ -1,6 +1,5 @@
 import { IUserDoc } from '#infra/mongodb/models/users/user.entity.js'
-import crypto from 'crypto'
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { authenticator } from 'otplib'
 export type JwtPayloadInterface = Pick<IUserDoc, 'id' | 'role' | 'isActivated'>
 
