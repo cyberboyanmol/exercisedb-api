@@ -20,4 +20,12 @@ export class RedisService implements RedisRepositoryInterface {
   async setWithExpiry(prefix: string, key: string, value: any, expiry: number): Promise<void> {
     await this.redisClient.set(`${prefix}:${key}`, JSON.stringify(value), 'EX', expiry)
   }
+  async getBuffer(prefix: string, key: string): Promise<Buffer | null> {
+    const value = await this.redisClient.getBuffer(`${prefix}:${key}`)
+    return value || null
+  }
+
+  async setBuffer(prefix: string, key: string, value: Buffer): Promise<void> {
+    await this.redisClient.set(`${prefix}:${key}`, value)
+  }
 }
