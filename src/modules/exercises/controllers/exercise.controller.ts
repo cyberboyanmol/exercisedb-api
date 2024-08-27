@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { ExerciseService } from '../services/exercise.service'
 import Exercise from '#infra/mongodb/models/exercises/exercise.schema.js'
 import { ExerciseModel } from '../models/exercise.model'
+import { HTTPException } from 'hono/http-exception'
 
 export class ExerciseController implements Routes {
   public controller: OpenAPIHono
@@ -277,6 +278,66 @@ export class ExerciseController implements Routes {
         return ctx.json({
           success: true,
           data: response
+        })
+      }
+    )
+
+    this.controller.openapi(
+      createRoute({
+        method: 'get',
+        path: '/exercises/{exerciseId}',
+        tags: ['Exercises'],
+        summary: 'Get exercise by ID',
+        description: 'Retrieves a specific exercise by its unique identifier.',
+        operationId: 'getExerciseById',
+        request: {
+          params: z.object({
+            exerciseId: z.string().openapi({
+              title: 'Exercise ID',
+              description: 'The unique identifier of the exercise to retrieve.',
+              type: 'string',
+              example: 'ztAa1RK',
+              default: 'ztAa1RK'
+            })
+          })
+        },
+        responses: {
+          200: {
+            description: 'Successful response with the exercise details.',
+            content: {
+              'application/json': {
+                schema: z.object({
+                  success: z.boolean().openapi({
+                    description: 'Indicates whether the request was successful.',
+                    type: 'boolean',
+                    example: true
+                  }),
+                  data: ExerciseModel.openapi({
+                    description: 'The retrieved exercise details.'
+                  })
+                })
+              }
+            }
+          },
+          404: {
+            description: 'Exercise not found'
+          },
+          500: {
+            description: 'Internal server error'
+          }
+        }
+      }),
+      async (ctx) => {
+        const exerciseId = ctx.req.param('exerciseId')
+        const exercise = await this.exerciseService.getExerciseById(exerciseId)
+
+        if (!exercise) {
+          throw new HTTPException(404, { message: 'Exercise not found' })
+        }
+
+        return ctx.json({
+          success: true,
+          data: exercise
         })
       }
     )

@@ -29,7 +29,6 @@ const ROUTE_CONFIG: RouteConfig[] = [
     message: 'signup is not allowed in production'
   },
   { path: '/api/v1/authenticate', allowedEnvs: new Set(['development', 'staging', 'production']), skipAuth: true }
-  // Add more routes as needed
 ]
 
 export async function authMiddleware(c: Context, next: Next) {
