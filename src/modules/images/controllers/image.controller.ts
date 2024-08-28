@@ -141,13 +141,7 @@ export class ImagesController implements Routes {
       async (ctx) => {
         try {
           const imageName = ctx.req.param('imageName')
-          const res = await this.imageService.viewImage(imageName)
-          return ctx.body(res, {
-            headers: {
-              'Content-Type': 'image/gif',
-              'Content-Length': res.byteLength
-            }
-          })
+          return ctx.redirect(`https://cdn-exercisedb.vercel.app/api/v1/images/${imageName}`)
         } catch (err) {
           if (err instanceof HTTPException) {
             return ctx.json({ success: false, error: err.message }, err.status)
