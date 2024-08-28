@@ -27,7 +27,7 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
       const totalPages = Math.ceil(totalCount / safeLimit)
       const currentPage = Math.floor(safeOffset / safeLimit) + 1
 
-      const result = await this.exerciseModel.find(query).sort(sort).skip(safeOffset).limit(safeLimit).lean().exec()
+      const result = await this.exerciseModel.find(query).sort(sort).skip(safeOffset).limit(safeLimit).exec()
 
       return {
         totalPages,
