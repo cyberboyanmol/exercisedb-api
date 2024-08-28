@@ -1,10 +1,8 @@
 import { BodyPartController, EquipmentController, MuscleController, ExerciseController } from './modules'
-import { DalService } from '#infra/mongodb/dal.service.js'
 import { App } from './app'
 import { ImagesController } from '#modules/images/controllers/image.controller.js'
 import { UserController } from '#modules/users/controllers/user.controller.js'
 
-const dalService = new DalService()
 const app = new App([
   new ExerciseController(),
   new MuscleController(),
@@ -13,6 +11,5 @@ const app = new App([
   new ImagesController(),
   new UserController()
 ]).getApp()
-await dalService.connectDB()
 
 export default app

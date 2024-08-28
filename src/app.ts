@@ -13,7 +13,7 @@ export class App {
   private dalService: DalService
   constructor(routes: Routes[]) {
     this.app = new OpenAPIHono()
-    this.dalService = new DalService()
+    this.dalService = DalService.getInstance()
     this.initializeApp(routes)
   }
   private async initializeApp(routes: Routes[]) {
@@ -38,6 +38,17 @@ export class App {
   }
 
   private initializeGlobalMiddleware() {
+    this.app.use(async (c, next) => {
+      try {
+        await this.dalService.connectDB()
+        await next()
+      } catch (error) {
+        console.error('Database connection error:', error)
+        return c.json({ error: 'Internal Server Error' }, 500)
+      } finally {
+        // await this.dalService.cleanup()
+      }
+    })
     this.app.use(
       cors({
         origin: '*',
@@ -53,6 +64,7 @@ export class App {
       const end = Date.now()
       c.res.headers.set('X-Response-Time', `${end - start}ms`)
     })
+
     this.app.use(authMiddleware)
   }
 
