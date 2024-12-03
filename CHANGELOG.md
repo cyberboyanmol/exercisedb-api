@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.6
+
+[compare changes](https://github.com/cyberboyanmol/exercisedb-api/compare/v0.0.5...v0.0.6)
+
+### 🚀 Enhancements
+
+- **exercise:** Added endpoint to  get exercise by exerciseid ([b3fa32a](https://github.com/cyberboyanmol/exercisedb-api/commit/b3fa32a))
+
+### ❤️ Contributors
+
+- Anmol Gangwar <anmolgangwar64@gmail.com>
+
 ## v0.0.5
 
 [compare changes](https://github.com/cyberboyanmol/exercisedb-api/compare/v0.0.4...v0.0.5)
