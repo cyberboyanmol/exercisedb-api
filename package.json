@@ -2,7 +2,7 @@
   "name": "exercisedb-api",
   "description": "Free ExerciseDB API",
   "repository": "https://github.com/cyberboyanmol/exercisedb-api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Anmol Gangwar",
   "license": "MIT",
   "type": "module",
