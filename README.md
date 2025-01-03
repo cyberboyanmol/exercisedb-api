@@ -45,4 +45,4 @@ You can easily deploy your own instance of the API by clicking the button below:
 
 ## 📜 License
 
-This project is distributed under the [MIT License](https://opensource.org/licenses/MIT). For more information, see the [LICENSE](LICENSE) file included in this repository.
+This project is distributed under the [MIT License](https://opensource.org/licenses/MIT). For more information, see the issue [ISSUE](https://github.com/cyberboyanmol/exercisedb-api/issues/3) included in this repository.
