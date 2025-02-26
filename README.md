@@ -8,7 +8,7 @@ What's Inside Our New Dataset
 - Many More..
 
   
-Check out the [Pricing Plan](https://verdant-cobra-ba0.notion.site/New-Exercise-Dataset-Pricing-Plans-1a6983b728ca80b69e85c5c74133220e) for detailed information.
+Check out the [Pricing Plan](https://dub.sh/JTgJoq2) for detailed information.
 
 
 
