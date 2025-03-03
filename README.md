@@ -1,22 +1,3 @@
-# 🚀 New Exercise Dataset 
-
-What's Inside Our New Dataset
-- 3,000+ exercises
-- High-quality video demonstration.
-- High-quality images
-- Multilingual supports
-- Many More..
-
-  
-Check out the [Pricing Plan](https://dub.sh/JTgJoq2) for detailed information.
-
-
-
-
-
-
-
-
 # ExerciseDB API
 
 ![GitHub License](https://img.shields.io/github/license/cyberboyanmol/exercisedb-api)
