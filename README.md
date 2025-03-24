@@ -1,3 +1,5 @@
+# We regret to inform you that this project will no longer be maintained effective immediately.
+
 # ExerciseDB API
 
 ![GitHub License](https://img.shields.io/github/license/cyberboyanmol/exercisedb-api)
@@ -11,37 +13,6 @@ The unauthorized downloading, scraping, or bulk collection of data from this API
 ## 📚 Documentation
 
 Check out the [API documentation](https://exercisedb-api.vercel.app/docs) for detailed information on how to use the API.
-
-## Sample Dataset
-
-```sh
- {
-        "exerciseId": "guT8YnS",
-        "name": "biceps pull-up",
-        "gifUrl": "https://cdn-exercisedb.vercel.app/api/v1/images/guT8YnS.gif",
-        "instructions": [
-          "Step:1 Hang from a pull-up bar with your palms facing away from you and your hands shoulder-width apart.",
-          "Step:2 Engage your core and pull yourself up by bending your elbows, bringing your chest towards the bar.",
-          "Step:3 Pause at the top of the movement, then slowly lower yourself back down to the starting position.",
-          "Step:4 Repeat for the desired number of repetitions."
-        ],
-        "targetMuscles": [
-          "biceps"
-        ],
-        "bodyParts": [
-          "upper arms"
-        ],
-        "equipments": [
-          "body weight"
-        ],
-        "secondaryMuscles": [
-          "forearms",
-          "shoulders"
-        ]
- }
-```
-![Chest Dip Exercise](https://ucarecdn.com/02aab038-31da-4127-af94-30cfbb93d47f/guT8YnS.gif)
-
 
 ## 📰 Changelog
 
