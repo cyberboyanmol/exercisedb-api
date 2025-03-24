@@ -1,4 +1,4 @@
-# We regret to inform you that this project will no longer be maintained effective immediately.
+# We regret to inform you that this project will no longer be maintained.
 
 # ExerciseDB API
 
