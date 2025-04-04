@@ -29,7 +29,7 @@ Exercise sample
 {
   "exerciseId": "K6NnTv0",
   "name": "Bench Press",
-  "imageUrl": "Barbell-Bench-Press_Chest-FIX_small.png",
+  "imageUrl": "Barbell-Bench-Press_Chest.png",
   "equipments": ["Barbell"],
   "bodyParts": ["Chest"],
   "exerciseType": "weight_reps",
@@ -39,7 +39,7 @@ Exercise sample
     "Pectoralis Major Clavicular Head",
     "Triceps Brachii"
   ],
-  "videoUrl": "Barbell-Bench-Press_Chest-FIX2_.mp4",
+  "videoUrl": "Barbell-Bench-Press_Chest_.mp4",
   "keywords": [
     "Chest workout with barbell",
     "Barbell bench press exercise",
@@ -83,6 +83,7 @@ Exercise sample
     "dCSgT7N"
   ]
 }
+
 ```
 Sample Image
   
